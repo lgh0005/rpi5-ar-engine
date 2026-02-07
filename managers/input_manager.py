@@ -1,5 +1,6 @@
 from core.singleton import SingletonMeta
 import pygame
+from debug import Logger
 
 class InputManager(metaclass=SingletonMeta):
     def __init__(self):
@@ -13,6 +14,7 @@ class InputManager(metaclass=SingletonMeta):
     def initialize(self):
         self.prev_keys = pygame.key.get_pressed()
         self.curr_keys = pygame.key.get_pressed()
+        Logger.info("[Input] InputManager initialized.")
     
     def update(self):
         self.prev_keys = self.curr_keys
@@ -33,3 +35,8 @@ class InputManager(metaclass=SingletonMeta):
 
     def get_mouse_button_down(self, button_index):
         return self.curr_mouse[button_index] and not self.prev_mouse[button_index]
+
+    def stop(self):
+        self.prev_keys = None
+        self.curr_keys = None
+        Logger.info("[Input] InputManager stopped.")

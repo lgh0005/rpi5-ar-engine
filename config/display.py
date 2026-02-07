@@ -1,0 +1,6 @@
+# 2. 디스플레이 & 윈도우 (Window Settings)
+WINDOW_TITLE = "RPi5 AR Engine v0.1"
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+TARGET_FPS = 60
+USE_FULLSCREEN = False

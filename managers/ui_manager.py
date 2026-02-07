@@ -1,4 +1,5 @@
 from core.singleton import SingletonMeta
+from debug import Logger
 
 class UIManager(metaclass=SingletonMeta):
     def __init__(self):
@@ -6,8 +7,10 @@ class UIManager(metaclass=SingletonMeta):
         pass
 
     def initialize(self):
-        # UI Manager 초기화 로직 작성
-        pass
+        Logger.info("[UI] UIManager initialized.")
 
     def update(self, dt):
         pass
+
+    def stop(self):
+        Logger.info("[UI] UIManager stopped.")

@@ -1,6 +1,7 @@
 import os
 import pygame
 from core.singleton import SingletonMeta
+from debug import Logger
 
 class AudioManager(metaclass=SingletonMeta):
     def __init__(self):
@@ -11,6 +12,7 @@ class AudioManager(metaclass=SingletonMeta):
     def initialize(self):
         if not pygame.mixer.get_init():
             pygame.mixer.init()
+        Logger.info("[Audio] AudioManager initialized.")
 
     def load_sound(self, name, path):
         if name not in self.sounds:
@@ -19,7 +21,7 @@ class AudioManager(metaclass=SingletonMeta):
                 sound.set_volume(self.sfx_volume)
                 self.sounds[name] = sound
             else:
-                print(f"Sound not found: {path}")
+                Logger.error(f"Sound not found: {path}")
 
     def play_sound(self, name):
         if name in self.sounds:
@@ -31,5 +33,6 @@ class AudioManager(metaclass=SingletonMeta):
             pygame.mixer.music.set_volume(self.music_volume)
             pygame.mixer.music.play(loop)
 
-    def stop_music(self):
+    def stop(self):
         pygame.mixer.music.stop()
+        Logger.info("[Audio] AudioManager stopped.")

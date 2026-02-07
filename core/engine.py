@@ -1,5 +1,6 @@
 import pygame
-import config.constants as constants
+from managers import *
+from debug import Logger
 
 # 2. Engine Core Class
 class EngineCore:
@@ -12,15 +13,15 @@ class EngineCore:
         pygame.init()
         
         # 2. 매니저 초기화
-        constants.WINDOW.initialize()
-        constants.RESOURCE.initialize()
-        constants.RENDER.initialize()
-        constants.SCENE.initialize()
-        constants.UI.initialize()
-        constants.TIME.initialize()
-        constants.INPUT.initialize()
-        constants.CAMERA.initialize()
-        constants.VISION.initialize()
+        WINDOW.initialize()
+        RESOURCE.initialize()
+        RENDER.initialize()
+        SCENE.initialize()
+        UI.initialize()
+        TIME.initialize()
+        INPUT.initialize()
+        CAMERA.initialize()
+        VISION.initialize()
 
         self.running = True
 
@@ -30,8 +31,8 @@ class EngineCore:
 
         while self.running:
             # 1. Delta Time 계산
-            constants.TIME.update()
-            dt = constants.TIME.get_delta_time()
+            TIME.update()
+            dt = TIME.get_delta_time()
 
             # 2. 이벤트 처리 (Input)
             self.process_events()
@@ -50,21 +51,32 @@ class EngineCore:
             if event.type == pygame.QUIT:
                 self.running = False
             elif event.type == pygame.VIDEORESIZE:
-                constants.WINDOW.handle_resize(event.w, event.h)
+                WINDOW.handle_resize(event.w, event.h)
 
     def update(self, dt):
-        constants.INPUT.update()
-        constants.SCENE.update(dt)
-        constants.UI.update(dt)
+        INPUT.update()
+        SCENE.update(dt)
+        UI.update(dt)
 
     def render(self):
-        constants.RENDER.render()
+        RENDER.render()
         pygame.display.flip()
 
     def cleanup(self):
-        # 매니저 정리 (순서 중요)
-        # self.camera_manager.stop()
+
+        # 매니저 종료
+        VISION.stop()
+        UI.stop()
+        SCENE.stop()
+        INPUT.stop()
+        CAMERA.stop()
+        AUDIO.stop()
+        RENDER.stop()
+        RESOURCE.stop()
+        TIME.stop()
+        WINDOW.stop()
 
         self.running = False
         pygame.quit()
+        Logger.info("Engine Shutdown Complete.")
 
