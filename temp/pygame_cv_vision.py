@@ -5,7 +5,7 @@ import subprocess
 import numpy as np
 
 # 라즈베리 파이 연결 모니터 출력을 위한 설정
-os.environ["DISPLAY"] = ":0"
+# sos.environ["DISPLAY"] = ":0"
 
 # 1. 설정
 W, H = 640, 480
