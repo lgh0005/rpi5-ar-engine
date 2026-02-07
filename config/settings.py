@@ -14,6 +14,7 @@ USE_FULLSCREEN = False
 CAMERA_ID = 0           # 보통 0번이 기본 카메라
 CAMERA_WIDTH = 640      # 카메라 하드웨어 해상도
 CAMERA_HEIGHT = 480
+CAMERA_FPS = 30
 FLIP_HORIZONTAL = True  # 거울 모드
 
 # 4. OpenGL & 렌더링 (Render Settings)
@@ -23,5 +24,4 @@ DEPTH_SIZE = 24
 NUM_SAMPLES = 4         # MSAA (계단현상 제거)
 
 # 5. 디버그 설정 (Debug)
-SHOW_FPS = True
-DRAW_WIREFRAME = False
+DEBUG = True
