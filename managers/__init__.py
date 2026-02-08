@@ -8,6 +8,7 @@ from .audio_manager import AudioManager
 from .input_manager import InputManager
 from .scene_manager import SceneManager
 from .ui_manager import UIManager
+from .object_manager import ObjectManager
 
 WINDOW = WindowManager()
 RESOURCE = ResourceManager()
@@ -19,6 +20,7 @@ AUDIO = AudioManager()
 INPUT = InputManager()
 SCENE = SceneManager()
 UI = UIManager()
+OBJECT = ObjectManager()
 
 __all__ = [
     "WINDOW", 
@@ -30,5 +32,6 @@ __all__ = [
     "AUDIO", 
     "INPUT", 
     "SCENE", 
-    "UI"
+    "UI",
+    "OBJECT"
 ]

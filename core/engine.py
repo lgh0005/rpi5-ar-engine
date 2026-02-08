@@ -18,6 +18,7 @@ class EngineCore:
         RENDER.initialize()
         SCENE.initialize()
         UI.initialize()
+        OBJECT.initialize()
         TIME.initialize()
         INPUT.initialize()
         CAMERA.initialize()
@@ -67,6 +68,7 @@ class EngineCore:
         # 매니저 종료
         VISION.stop()
         UI.stop()
+        OBJECT.stop()
         SCENE.stop()
         INPUT.stop()
         CAMERA.stop()
@@ -76,6 +78,7 @@ class EngineCore:
         TIME.stop()
         WINDOW.stop()
 
+        # Pygame 종료
         self.running = False
         pygame.quit()
         Logger.info("Engine Shutdown Complete.")
