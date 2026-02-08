@@ -1,4 +1,3 @@
-import moderngl
 import glm
 import numpy as np
 from managers import RENDER
