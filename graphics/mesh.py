@@ -1,21 +1,28 @@
 import numpy as np
-from managers import RENDER
-from config.opengl import VAR_POSITION, VAR_NORMAL, VAR_TEXCOORD, VAR_TANGENT
+import globals
+import moderngl
+import config
 
 class Mesh:
-    def __init__(self, program, vertices, indices, primitive):
+    def __init__(self, program, vertices, indices, primitive=moderngl.TRIANGLES):
         self.__primitive = primitive
-        self.__vao = RENDER.ctx.vertex_array(
+        self.__vbo = globals.RENDER.ctx.buffer(np.array(vertices, dtype='f4').tobytes())
+        self.__ibo = globals.RENDER.ctx.buffer(np.array(indices, dtype='i4').tobytes())
+        vertex = [
+            (
+                self.__vbo, 
+                '3f 3f 2f 3f', 
+                config.VAR_POSITION, 
+                config.VAR_NORMAL, 
+                config.VAR_TEXCOORD, 
+                config.VAR_TANGENT
+            )
+        ]
+        self.__vao = globals.RENDER.ctx.vertex_array(
             program.mgl_program, 
-            [
-                self.__vbo,
-                '3f 3f 2f 3f',
-                VAR_POSITION, VAR_NORMAL, VAR_TEXCOORD, VAR_TANGENT
-            ], 
+            vertex, 
             self.__ibo
         )
-        self.__vbo = RENDER.ctx.buffer(np.array(vertices, dtype='f4').tobytes())
-        self.__ibo = RENDER.ctx.buffer(np.array(indices, dtype='i4').tobytes())
 
     def draw(self):
         self.__vao.render(self.__primitive)

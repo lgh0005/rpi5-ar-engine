@@ -1,4 +1,4 @@
-from config import display
+import config
 from core.singleton import SingletonMeta
 import pygame
 from debug import Logger
@@ -11,7 +11,7 @@ class TimeManager(metaclass=SingletonMeta):
 
     def initialize(self):
         self.clock = pygame.time.Clock()
-        self.target_fps = display.TARGET_FPS
+        self.target_fps = config.TARGET_FPS
         Logger.info("[Time] TimeManager initialized.")
 
     def update(self):

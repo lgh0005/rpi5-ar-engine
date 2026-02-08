@@ -1,5 +1,6 @@
 import pygame
-from managers import *
+import globals
+import managers
 from components import *
 from debug import Logger
 
@@ -14,24 +15,24 @@ class EngineCore:
         pygame.init()
         
         # 2. 매니저 초기화
-        WINDOW.initialize()
-        RESOURCE.initialize()
-        RENDER.initialize()
-        SCENE.initialize()
-        UI.initialize()
-        OBJECT.initialize()
-        TIME.initialize()
-        INPUT.initialize()
-        CAMERA.initialize()
-        VISION.initialize()
-
+        managers.create_managers()
+        globals.WINDOW.initialize()
+        globals.RENDER.initialize()
+        globals.RESOURCE.initialize() 
+        globals.SCENE.initialize()
+        globals.UI.initialize()
+        globals.OBJECT.initialize()
+        globals.TIME.initialize()
+        globals.INPUT.initialize()
+        globals.CAMERA.initialize()
+        globals.VISION.initialize()
         self.running = True
 
     def run(self):
         while self.running:
             # 1. Delta Time 계산
-            TIME.update()
-            dt = TIME.get_delta_time()
+            globals.TIME.update()
+            dt = globals.TIME.get_delta_time()
 
             # 2. 이벤트 처리 (Input)
             self.process_events()
@@ -50,30 +51,30 @@ class EngineCore:
             if event.type == pygame.QUIT:
                 self.running = False
             elif event.type == pygame.VIDEORESIZE:
-                WINDOW.handle_resize(event.w, event.h)
+                globals.WINDOW.handle_resize(event.w, event.h)
 
     def update(self, dt):
-        INPUT.update()
-        SCENE.update(dt)
-        UI.update(dt)
+        globals.INPUT.update()
+        globals.SCENE.update(dt)
+        globals.UI.update(dt)
 
     def render(self):
-        RENDER.render()
+        globals.RENDER.render()
         pygame.display.flip()
 
     def cleanup(self):
 
         # 매니저 종료
-        VISION.stop()
-        UI.stop()
-        OBJECT.stop()
-        SCENE.stop()
-        INPUT.stop()
-        CAMERA.stop()
-        RENDER.stop()
-        RESOURCE.stop()
-        TIME.stop()
-        WINDOW.stop()
+        globals.VISION.stop()
+        globals.UI.stop()
+        globals.OBJECT.stop()
+        globals.SCENE.stop()
+        globals.INPUT.stop()
+        globals.CAMERA.stop()
+        globals.RENDER.stop()
+        globals.RESOURCE.stop()
+        globals.TIME.stop()
+        globals.WINDOW.stop()
 
         # Pygame 종료
         self.running = False

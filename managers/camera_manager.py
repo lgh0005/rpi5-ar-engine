@@ -1,5 +1,5 @@
 from core.singleton import SingletonMeta
-import config.camera as camera
+import config
 import subprocess
 import threading
 import cv2
@@ -20,15 +20,15 @@ class CameraManager(metaclass=SingletonMeta):
 
     def initialize(self):
         # 1. Config에서 설정 로드
-        self.width = camera.CAMERA_WIDTH
-        self.height = camera.CAMERA_HEIGHT
+        self.width = config.CAMERA_WIDTH
+        self.height = config.CAMERA_HEIGHT
 
         # YUV420 프레임 크기 계산: Width * Height * 1.5 바이트
         self.frame_size = int(self.width * self.height * 1.5)
         Logger.info(f"Initializing RPi5 CSI Camera via rpicam-vid CLI ({self.width}x{self.height})...")
 
         # 2. 명령어 가져오기 및 rpicam-vid 프로세스 시작
-        cmd = camera.RPICAM_VID_ENTRY_CMD
+        cmd = config.RPICAM_VID_ENTRY_CMD
 
         self.rapicam_vid_proc = subprocess.Popen(
                 cmd,
@@ -71,7 +71,7 @@ class CameraManager(metaclass=SingletonMeta):
             bgr_frame = cv2.cvtColor(yuv, cv2.COLOR_YUV2BGR_I420)
 
             # 5. 좌우 반전 옵션
-            if camera.FLIP_HORIZONTAL:
+            if config.FLIP_HORIZONTAL:
                 bgr_frame = cv2.flip(bgr_frame, 1)
 
             # 6. 최신 프레임 업데이트 (Thread-Safe)

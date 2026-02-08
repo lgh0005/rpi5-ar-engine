@@ -16,6 +16,7 @@ class Entity(Object):
     def get_component(self, component_cls):
         return self.__components.get(component_cls)
 
+# region [Default object overrides]
     @override
     def awake(self):
         for comp in self.__components.values():
@@ -38,7 +39,9 @@ class Entity(Object):
         for comp in self.__components.values():
             if comp.enabled:
                 comp.late_update(dt)
+# endregion
 
+# region [Default Entity getters & setters]
     @property
     def parent(self) : return self.__parent
 
@@ -47,3 +50,4 @@ class Entity(Object):
 
     @property
     def components(self) : return self.__components
+# endregion

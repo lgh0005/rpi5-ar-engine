@@ -9,6 +9,7 @@ class Component(Object):
     def on_enable(self): pass
     def on_disable(self): pass
 
+# region [Default Component getters & setters]
     @property
     def enabled(self): return self._enabled
 
@@ -24,3 +25,4 @@ class Component(Object):
 
     @entity.setter
     def entity(self, value): self._entity = value
+# endregion

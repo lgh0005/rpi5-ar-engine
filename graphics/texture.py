@@ -1,6 +1,6 @@
 import pygame
 import moderngl
-from managers import RENDER
+import globals
 
 class Texture:
     def __init__(self, path: str, components=4):
@@ -15,7 +15,7 @@ class Texture:
         width, height = surface.get_size()
 
         # 3. ModernGL 텍스처 생성
-        self.__texture = RENDER.ctx.texture(
+        self.__texture = globals.RENDER.ctx.texture(
             size=(width, height),
             components=components,
             data=image_data
