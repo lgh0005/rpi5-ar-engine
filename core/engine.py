@@ -28,9 +28,6 @@ class EngineCore:
         self.running = True
 
     def run(self):
-        if not self.running:
-            self.initialize()
-
         while self.running:
             # 1. Delta Time 계산
             TIME.update()
