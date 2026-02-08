@@ -1,4 +1,3 @@
-import moderngl
 import numpy as np
 from managers import RENDER
 from config.opengl import VAR_POSITION, VAR_NORMAL, VAR_TEXCOORD, VAR_TANGENT

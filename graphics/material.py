@@ -1,28 +1,20 @@
 from graphics.program import Program
 from graphics.texture import Texture
-from config.opengl import TEX_ALBEDO, TEX_SPECULAR, TEX_NORMAL, TEX_HEIGHT, TEX_EMISSION
+from config.opengl import MATERIAL_TEXTURE_BINDINGS
 
 class Material:
     def __init__(self, program: Program):
         self.program = program
-
-        self.textures = {
-            TEX_ALBEDO : None,
-            TEX_SPECULAR : None,
-            TEX_NORMAL : None,
-            TEX_HEIGHT : None,
-            TEX_EMISSION : None
-        }
-
+        self.__textures = { slot: None for slot in MATERIAL_TEXTURE_BINDINGS }
         self.height_scale = 1.0
         self.shininess = 32.0
         self.emission_intensity = 1.0
 
     def set_texture(self, map_type: str, texture: Texture):
-        if map_type in self.textures:
-            self.textures[map_type] = texture
+        if map_type in self.__textures:
+            self.__textures[map_type] = texture
 
-    ## TODO : 유니폼 변수 정책을 정해야 한다.
+    ## TODO : 유니폼 변수 선언 정책을 정해야 한다.
     def bind(self):
 
         # 1. 프로그램 사용
@@ -30,12 +22,9 @@ class Material:
 
         # 2. 텍스처 유닛 바인딩 (순서 고정)
         # 0: Albedo, 1: Specular, 2: Normal, 3: Height, 4: Emission
-        mat_tex_slots = ['albedo', 'specular', 'normal', 'height', 'emission']
+        mat_tex_slots = MATERIAL_TEXTURE_BINDINGS
         for i, slot in enumerate(mat_tex_slots):
-            tex = self.textures[slot]
-
-            ## TODO : 이후에 셰이더 안에서 머티리얼 구조체 블록으로 감싼
-            ## 유니폼 변수 선언이 필요함
+            tex = self.__textures[slot]
 
             if tex:
                 tex.use(location=i)

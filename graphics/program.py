@@ -5,7 +5,6 @@ from managers import RENDER
 
 class Program:
     def __init__(self, vert_path: str, frag_path: str):
-        # 파일 읽기
         with open(vert_path, 'r', encoding='utf-8') as f: vs_source = f.read()
         with open(frag_path, 'r', encoding='utf-8') as f: fs_source = f.read()
         self._program = RENDER.ctx.program(vertex_shader=vs_source, fragment_shader=fs_source)

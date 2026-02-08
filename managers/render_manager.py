@@ -1,6 +1,7 @@
 import moderngl
 from core.singleton import SingletonMeta
 from debug import Logger
+from config.opengl import MGL_GL_CONTEXT_VERSION
 
 class RenderManager(metaclass=SingletonMeta):
     def __init__(self):
@@ -8,7 +9,7 @@ class RenderManager(metaclass=SingletonMeta):
 
     def initialize(self):
         # 1. 기존에 생성된 윈도우의 OpenGL 컨텍스트 감지 및 생성
-        self.__ctx = moderngl.create_context(require=310)
+        self.__ctx = moderngl.create_context(require=MGL_GL_CONTEXT_VERSION)
 
         # 2. 필수 3D 렌더링 설정 활성화
         # DEPTH_TEST: 깊이 버퍼 사용 (앞의 물체가 뒤를 가림)
