@@ -1,5 +1,6 @@
 import pygame
 from managers import *
+from components import *
 from debug import Logger
 
 # 2. Engine Core Class
@@ -72,7 +73,6 @@ class EngineCore:
         SCENE.stop()
         INPUT.stop()
         CAMERA.stop()
-        AUDIO.stop()
         RENDER.stop()
         RESOURCE.stop()
         TIME.stop()

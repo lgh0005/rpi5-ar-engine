@@ -4,45 +4,46 @@ from typing import override
 class Entity(Object):
     def __init__(self):
         super().__init__()
-        self.components = []
-        self.parent = None
-        self.__state = 0
+        self.__parent = None
+        self.__components = {}
 
-    def add_component(self, component):
-        component.entity = self
-        self.components.append(component)
-        return component
+    def add_component(self, component_cls):
+        instance = component_cls()
+        instance.entity = self
+        self.__components[component_cls] = instance
+        return instance
 
-    def get_component(self, component_type):
-        for comp in self.components:
-            if isinstance(comp, component_type):
-                return comp
-        return None
+    def get_component(self, component_cls):
+        return self.__components.get(component_cls)
 
     @override
     def awake(self):
-        for comp in self.components:
+        for comp in self.__components.values():
             comp.awake()
-    
+
     @override
     def start(self):
-        for comp in self.components:
-            comp.start()
-    
-    @override
-    def update(self, dt : float):
-        if not self.active: return
-        for comp in self.components: comp.update(dt)
-        for child in self.children: child.update(dt)
+        for comp in self.__components.values():
+            if comp.enabled:
+                comp.start()
 
     @override
-    def late_update(self, dt : float):
-        if not self.active: return
-        for comp in self.components: comp.late_update(dt)
-        for child in self.children: child.late_update(dt)
+    def update(self, dt):
+        for comp in self.__components.values():
+            if comp.enabled:
+                comp.update(dt)
+
+    @override
+    def late_update(self, dt):
+        for comp in self.__components.values():
+            if comp.enabled:
+                comp.late_update(dt)
 
     @property
-    def state(self): return self.__state
-    
-    @state.setter
-    def state(self, value : int): self.__state = value
+    def parent(self) : return self.__parent
+
+    @parent.setter
+    def parent(self, value) : self.__parent = value
+
+    @property
+    def components(self) : return self.__components

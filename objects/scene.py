@@ -1,42 +1,21 @@
-from objects import Object, Entity
-from typing import override
+from objects import Object
+from managers import OBJECT
 
 class Scene(Object):
     def __init__(self):
         super().__init__()
-        self.entities = []
 
-    def add_entity(self, entity):
-        self.entities.append(entity)
+    def load(self):
+        # 1. json파일을 로드 (함수 인자에 json파일 경로를 받아올 수 있음)
+
+        # 2. 적절히 파싱해서 컴포넌트 생성, add_entity를 호출한다.
+        pass
+
+    ## TODO : load에 필요한 몇 가지 private 메서드들을 호출한다.
+    def _add_entity(self, entity):
+        OBJECT.add_entity(entity)
         return entity
 
-    def remove_entity(self, entity):
+    def _remove_entity(self, entity):
         if entity in self.entities:
-            self.entities.remove(entity)
-
-    def get_entity(self, index):
-        if 0 <= index < len(self.entities):
-            return self.entities[index]
-        return None
-
-    @override
-    def awake(self):
-        for entity in self.entities:
-            entity.awake()
-
-    @override
-    def start(self):
-        for entity in self.entities:
-            entity.start()
-
-    @override
-    def update(self, dt : float):
-        if not self.active: return
-        for entity in self.entities:
-            entity.update(dt)
-
-    @override
-    def late_update(self, dt : float):
-        if not self.active: return
-        for entity in self.entities:
-            entity.late_update(dt)
+            OBJECT.destroy_entity(entity)
