@@ -3,3 +3,16 @@ GL_MAJOR_VERSION = 3
 GL_MINOR_VERSION = 0
 DEPTH_SIZE = 24
 NUM_SAMPLES = 4         # MSAA (계단현상 제거)
+
+# 5. 셰이더 변수들
+VAR_POSITION = "aPos"
+VAR_NORMAL = "aNormal"
+VAR_TEXCOORD = "aTexCoord"
+VAR_TANGENT = "aTangent"
+
+# 6. 머티리얼 텍스쳐 매핑들
+TEX_ALBEDO = "albedo"
+TEX_SPECULAR = "specular"
+TEX_NORMAL = "noraml"
+TEX_HEIGHT = "height"
+TEX_EMISSION = "emission"
