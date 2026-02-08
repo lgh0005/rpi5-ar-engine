@@ -8,6 +8,9 @@ class SceneManager(metaclass=SingletonMeta):
     def initialize(self):
         Logger.info("[Scene] SceneManager initialized.")
 
+    def load_scene(self, scene_name):
+        Logger.info(f"[Scene] Loading scene: {scene_name}")
+
     def update(self, dt):
         pass
 

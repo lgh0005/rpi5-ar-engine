@@ -1,6 +1,5 @@
 from debug import Logger
 from core.singleton import SingletonMeta
-from objects import Component
 
 class ObjectManager(metaclass=SingletonMeta):
     def __init__(self):
@@ -11,8 +10,9 @@ class ObjectManager(metaclass=SingletonMeta):
 
     def initialize(self):
         import components
-        all_types = self._get_all_subclasses(Component)
+        from objects import Component
 
+        all_types = self._get_all_subclasses(Component)
         for cls in all_types:
             self.__components_by_type[cls] = {}
         Logger.info(f"[Object] {len(all_types)} types registered successfully.")

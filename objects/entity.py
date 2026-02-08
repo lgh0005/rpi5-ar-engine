@@ -6,7 +6,7 @@ class Entity(Object):
         super().__init__()
         self.components = []
         self.parent = None
-        self.__state : int = 0
+        self.__state = 0
 
     def add_component(self, component):
         component.entity = self
