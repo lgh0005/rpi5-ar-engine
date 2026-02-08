@@ -30,7 +30,7 @@ class Transform(Component):
             for child in current.children:
                 stack.append(child)
 
-# --- [Properties: Position, Scale, Rotation] ---
+# region [Properties: Position, Scale, Rotation]
     @property
     def position(self): return self.__position
 
@@ -61,8 +61,9 @@ class Transform(Component):
                        glm.radians(value[2]))
         self.__rotation = glm.quat(rad)
         self.set_dirty()
+# endregion
 
-# --- [Hierarchy Management] ---
+# region [Hierarchy Management]
     @property
     def parent(self): return self.__parent
 
@@ -84,8 +85,9 @@ class Transform(Component):
 
     @property
     def children(self): return self.__children
+# endregion
 
-# --- [Matrix Calculation: Lazy Evaluation] ---
+# region [Matrix Calculation: Lazy Evaluation]
     def __update_matrices(self):
         # Local Matrix = T * R * S
         t_mat = glm.translate(glm.mat4(1.0), self.__position)
@@ -113,3 +115,4 @@ class Transform(Component):
         if self.__is_transform_dirty:
             self.__update_matrices()
         return self.__world_matrix
+# endregion

@@ -17,7 +17,7 @@ class Camera(Component):
         self.__projection_matrix = glm.mat4(1.0)
         self.__is_camera_dirty = True
 
-    # --- [Properties] ---
+# region [Properties]
     @property
     def fov(self): return self.__fov
     @fov.setter
@@ -45,8 +45,9 @@ class Camera(Component):
     def aspect_ratio(self, value):
         self.__aspect_ratio = value
         self.__is_camera_dirty = True
+# endregion
 
-    # --- [Matrix Calculations] ---
+# region [[Matrix Calculations]
     @property
     def projection_matrix(self):
         if self.__is_camera_dirty:
@@ -66,4 +67,5 @@ class Camera(Component):
             return glm.mat4(1.0)
             
         return glm.inverse(transform.world_matrix)
+# endregion
     
